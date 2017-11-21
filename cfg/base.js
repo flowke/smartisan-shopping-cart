@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('./path');
 const webpack = require('webpack');
 const Html = require('html-webpack-plugin');
 const CleanFolder = require('clean-webpack-plugin');
@@ -48,7 +48,7 @@ module.exports = {
     plugins: [
         new Html({
             name: 'index.html',
-            template: './src/index.html'
+            template: './public/index.html'
         }),
         new CleanFolder(['dist'],{
             root: path.root

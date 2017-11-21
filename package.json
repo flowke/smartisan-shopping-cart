@@ -4,7 +4,7 @@
   "description": "react-锤子电商购物系统",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "cross-env NODE_ENV=development node server.js",
     "dev": "webpack --env=development",
     "dist": "webpack --env=production",
     "run:dist": "serve ./dist/app.js -S"
@@ -24,7 +24,7 @@
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
-    "react-router-dom": "^4.2.2",
+    "react-router": "^4.2.0",
     "redux": "^3.7.2"
   },
   "devDependencies": {
@@ -39,13 +39,18 @@
     "clean-webpack-plugin": "^0.1.17",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
+    "express": "^4.16.2",
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",
+    "ip": "^1.1.5",
     "minimist": "^1.2.0",
+    "open-browser-webpack-plugin": "0.0.5",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.0",
     "webpack-dev-server": "^2.9.4",
+    "webpack-hot-middleware": "^2.20.0",
     "webpack-merge": "^4.1.1"
   },
   "babel": {
@@ -56,7 +61,7 @@
     "plugins": [
       "syntax-dynamic-import",
       "transform-decorators-legacy",
-      "transform-class-properties",
+      "babel-plugin-transform-class-properties",
       "transform-object-rest-spread"
     ]
   }

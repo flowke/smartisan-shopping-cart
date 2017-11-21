@@ -27,4 +27,4 @@ let dev = {
     devtool: 'cheap-module-eval-source-map',
 }
 
-module.exports = strategyMerge(dev);
+module.exports = strategyMerge(base,dev);
