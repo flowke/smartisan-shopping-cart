@@ -33,7 +33,7 @@ newConfig = strategyMerge(config,{
     ],
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new OpenBrowserPlugin({url: `http://${ip.address()}:${port}`}),
+        new OpenBrowserPlugin({url: `http://${ip.address()}:${port}/?react_pref`}),
     ]
 });
 
