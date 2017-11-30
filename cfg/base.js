@@ -5,7 +5,7 @@ const CleanFolder = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './src/app.js'
+        app: '../src/index.js'
     },
     output: {
         path: path.dist,
@@ -23,7 +23,7 @@ module.exports = {
                 use: ['url-loader?limit=8192'],
             },
             {
-                test: /\.(mp4|ogg|svg)$/,
+                test: /\.(mp4|ogg|svg|ico)$/,
                 use: ['file-loader']
             },
             {
@@ -41,6 +41,15 @@ module.exports = {
             {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
                 use: ['url-loader?limit=10000&mimetype=image/svg+xml']
+            },
+            {
+                test: /\.html$/,
+                use: {
+                    loader: 'html-loader',
+                    options: {
+                        attrs: ['link:href']
+                    }
+                }
             }
         ]
     },
@@ -68,6 +77,7 @@ module.exports = {
     resolve:{
         modules:[
             'node_modules',
+            path.root,
             path.src,
             path.common,
             path.route,
@@ -75,10 +85,5 @@ module.exports = {
             path.layout,
             path.store
         ]
-    },
-
-    devServer: {
-        historyApiFallback: true,
-        open: true
     }
 };

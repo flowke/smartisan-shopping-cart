@@ -18,7 +18,7 @@ let strategyMerge = merge.strategy({
 const options = {
     contentBase: './',
     publicPath: '/',
-    useLocalIp: true,
+    noInfo: true,
     stats: {
         colors: true
     }
@@ -29,7 +29,7 @@ let port = 9000;
 newConfig = strategyMerge(config,{
     entry: [
         'webpack-hot-middleware/client?reload=true',
-        './src/app.js'
+        './src/index.js'
     ],
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
