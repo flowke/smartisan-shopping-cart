@@ -4,13 +4,15 @@ import {configureStore, history} from 'store';
 
 import routes from './app';
 
+import 'style/reset.css';
+
 const store = configureStore();
 
 function render(routes) {
     ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
-                {routes}
+                { routes }
             </ConnectedRouter>
         </Provider>
         ,
@@ -19,11 +21,10 @@ function render(routes) {
 };
 
 render(routes);
-
-
-if (module.hot) {
-    module.hot.accept('./app', () => {
-        render(routes);
-    });
-
-}
+//
+// if (module.hot) {
+//     module.hot.accept('./app', () => {
+//         // render(routes);
+//     });
+//
+// }
