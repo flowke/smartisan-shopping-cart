@@ -1,10 +1,30 @@
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
 import GoodsItem from 'component/GoodsItem/GoodsItem';
 import '../assets/style/shop.css';
 
-export default class Shop extends Component{
+import {actions} from './ShopViewRedux';
+
+@connect(
+    state=>{
+        let {shop} = state;
+        return {
+            goods: shop.goodsList
+        }
+    },
+    dispatch=>{
+        return bindActionCreators(actions,dispatch);
+    }
+)
+class Shop extends Component{
     constructor(props){
         super(props);
+    }
+
+
+    componentDidMount(){
+        this.props.getGoodsList();
     }
 
     render(){
@@ -21,7 +41,7 @@ export default class Shop extends Component{
                     </div>
                     <div className="gray-box">
                         <div className="item-box">
-                            {/* <shop-item key="index" v-for="item,index in goodsList" :item="item"></shop-item> */}
+
                             <GoodsItem/>
                         </div>
                     </div>
@@ -31,3 +51,5 @@ export default class Shop extends Component{
         )
     }
 }
+
+export default Shop

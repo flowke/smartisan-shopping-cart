@@ -1,13 +1,13 @@
 import ShopLayout from 'layout/ShopLayout';
-import {Shop} from 'route';
+import {ShopView} from 'route';
 
 export default (
     <div>
         <Route path="/" render={ ()=>{
             return (
                 <ShopLayout>
-                    <Route exact path="/" component={Shop}/>
-                    <Route path="/shop" component={Shop}/>
+                    <Route exact path="/" component={ShopView}/>
+                    <Route path="/shop" component={ShopView}/>
                 </ShopLayout>
             );
         } }/>

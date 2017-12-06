@@ -1,2 +1,2 @@
 
-export {Shop} from './Shop';
+export {ShopView} from './Shop';

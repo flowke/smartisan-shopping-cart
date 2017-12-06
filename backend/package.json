@@ -1,0 +1,20 @@
+{
+  "name": "miaov",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --harmony index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.4",
+    "http-proxy-middleware": "^0.17.4"
+  },
+  "devDependencies": {
+    "request": "^2.83.0"
+  }
+}

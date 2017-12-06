@@ -1,0 +1,114 @@
+
+请求地址：GET /shop_list
+
+作用：获取商品的列表
+
+请求数据： 无
+响应数据：
+	{
+		code: 1失败；0成功
+		data: { 存放数据
+			list： [  商品列表
+				{
+					id: 大类商品的id
+					name  商品名字
+					price 商品单价
+					image_pre 商品图片的服务地址
+					sku_list: [  大类商品下的分类
+						{
+							direct_to_cart： true可直接加入购物车；false到详情页
+							ali_image： 展示的大图
+							sku_id：分类商品的id
+							sub_title： 小标题
+							title：大标题
+							price: 分类商品的单价
+							image： 分类商品的颜色图片（可作为背景，img）
+							color_id： 颜色的id
+						}
+					]
+				}
+			]
+		}
+	}
+
+--------------------------------------
+
+请求地址：GET  /count
+作用：发送给后端购买商品的数量
+
+请求数据： 
+	
+	第一种情况：发送给后端购买的商品的id和数量
+		{
+	 	skuId:  购买商品的id
+	 	count:  够买商品的数量
+	   }
+	 第二种情况：参数无
+	 	返回是所有加入购物车的商品的数量和id
+
+响应数据：
+			{
+				"code":0, 
+				"idsList":  // 加入购物车商品的id和数量
+				[
+					{
+						"count":  // 数量
+						"skuId":  // 加入购物车的id
+					}
+				]
+			}
+
+请求地址： GET /add_cart
+作用： 拿到指定id商品的数据，应用是在添加购物车使用
+
+请求数据：
+
+	skuId: 添加购物车的商品的id,可以写多个，多个以逗号分隔
+
+响应数据：
+	{
+  "code": 0,
+  "data": {
+    "list": [
+      {
+        "id": 					// 商品的id
+        "in_stock":  			// true，有货，false，无货
+        "name": 				// 商品的名字
+        "price": 
+        "spu_id":  				// 这是这个商品的大分类
+        "shop_info": {   		// 商品信息
+          "limit_num":			// 能购买的最大数
+          "ali_image": 			// 商品展示的图片
+          "sub_title":  		// 小标题
+          "title": 				// 标题
+          "spec_json": [  		// 规格说明 
+            {
+              "spec_id": 
+              "spec_value_id":
+              "show_name":   	// 展示的名字
+              "item_value": 
+              "image": 
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+
+请求地址： GET /remove_count
+作用： 删除已经加入购物车的商品
+
+请求数据：
+	skuId：要删除的商品的id
+响应数据：
+	{
+		"code":0, 
+		"idsList":  // 加入购物车商品的id和数量
+		[
+			{
+				"count":  // 数量
+				"skuId":  // 加入购物车的id
+			}
+		]
+	}
