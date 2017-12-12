@@ -27,7 +27,7 @@ export default {
                 if(res.status===200){
                     return res.data;
                 }else{
-                    return false
+                    throw 'wrong';
                 }
             })
     },

@@ -10,9 +10,7 @@ const history = createHistory();
 
 const routerML = routerMiddleware(history);
 
-export {history};
-
-export function configureStore() {
+const store = function configureStore() {
 
     if(process.env.NODE_ENV === 'production'){
         let store = createStore(
@@ -22,12 +20,12 @@ export function configureStore() {
             )
         );
 
-        // if (module.hot) {
-        //     // Enable Webpack hot module replacement for reducers
-        //     module.hot.accept('./reducers', () => {
-        //         store.replaceReducer( reducer );
-        //     });
-        // }
+        if (module.hot) {
+            // Enable Webpack hot module replacement for reducers
+            module.hot.accept('./reducers', () => {
+                store.replaceReducer( reducer );
+            });
+        }
 
         return store;
     }else{
@@ -39,4 +37,6 @@ export function configureStore() {
             )
         );
     }
-}
+}();
+
+export {history, store};

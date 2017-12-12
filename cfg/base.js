@@ -66,6 +66,7 @@ module.exports = {
             React: 'react',
             Component: ['react', 'Component'],
             ReactDOM: 'react-dom',
+            PT: 'prop-types',
             _: 'lodash',
             Route: ['react-router-dom', 'Route'],
             Router: ['react-router-dom', 'BrowserRouter'],

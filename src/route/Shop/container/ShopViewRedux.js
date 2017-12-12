@@ -6,11 +6,13 @@ const initState = {
 
 const GET_GOODS = 'GET_GOODS/shopping-car/shop';
 
-let getGoodsList = ()=> dispatch=> {
+let getGoodsListAction = ()=> dispatch=> {
 
-    goodsAPI.getGoodsList().then(data=>{
-        console.log(data);
-        dispatch({type: GET_GOODS, data});
+    goodsAPI.getGoodsList().then(({code,data})=>{
+        if(code===1){
+            dispatch({type: GET_GOODS, goods:data.list});
+        }
+
     })
 }
 
@@ -33,5 +35,5 @@ export default function shop(state=initState, action) {
 }
 
 export const actions = {
-    getGoodsList
+    getGoodsListAction
 };

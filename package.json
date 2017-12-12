@@ -51,6 +51,7 @@
     "ip": "^1.1.5",
     "minimist": "^1.2.0",
     "open-browser-webpack-plugin": "0.0.5",
+    "prop-types": "^15.6.0",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",

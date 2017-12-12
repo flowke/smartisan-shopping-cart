@@ -49,7 +49,8 @@
   float: left;
     margin: 0 5px;
 }
-.sku-box .item .colors-list>li a{
+.sku-box .item .colors-list>li span{
+  cursor: pointer;
   width: 8px;
     height: 8px;
     border: 1px solid #e5e5e5;
@@ -59,7 +60,7 @@
     padding: 2px;
     display: block;
 }
-.sku-box .item .colors-list>li a.active{
+.sku-box .item .colors-list>li span.active{
     box-shadow: inset 0 0 0 1px #b2b2b2;
     border-color: #b2b2b2;
 }

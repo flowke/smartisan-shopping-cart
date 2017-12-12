@@ -17,17 +17,35 @@ import {actions} from './ShopViewRedux';
         return bindActionCreators(actions,dispatch);
     }
 )
-class Shop extends Component{
+export default class Shop extends Component{
     constructor(props){
         super(props);
     }
 
 
     componentDidMount(){
-        this.props.getGoodsList();
+        //发起商品数据请求
+        this.props.getGoodsListAction();
     }
 
     render(){
+
+        let {
+            goods // 商品数据
+        } = this.props;
+
+        let goodsComp = goods.map(data=>{
+            let {
+                id, name, price, image_pre
+            } = data;
+            return (
+                <GoodsItem
+                    key={data.id}
+                    {...data}
+                />
+            );
+        });
+
         return (
             <div id="main">
                 <div className="sku-box store-content">
@@ -41,8 +59,7 @@ class Shop extends Component{
                     </div>
                     <div className="gray-box">
                         <div className="item-box">
-
-                            <GoodsItem/>
+                            {goodsComp}
                         </div>
                     </div>
                 </div>
@@ -51,5 +68,3 @@ class Shop extends Component{
         )
     }
 }
-
-export default Shop
