@@ -1,7 +1,7 @@
 import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
 
-import GoodsItem from 'component/GoodsItem/GoodsItem';
+
+import GoodsItem from 'component/GoodsItem/GoodsListItem';
 import '../assets/style/shop.css';
 
 import {actions} from './ShopViewRedux';
@@ -21,7 +21,6 @@ export default class Shop extends Component{
     constructor(props){
         super(props);
     }
-
 
     componentDidMount(){
         //发起商品数据请求

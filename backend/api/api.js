@@ -16,16 +16,15 @@ router.get('/shop_details',function (req,res){
     let url = detailsUrl + id+'?with_spu_sku=true&with_stock=true';
     console.log(url)
     request.get(url, function (error,responese,body) {
-      if(error){
-        
+    if(error){
         return
-      }
-     
-      let d = JSON.parse(body);
-     
-      res.send(filtershopDetails(d))
+    }
+
+    let d = JSON.parse(body);
+
+    res.send(filtershopDetails(d))
     })
-    
+
 })
 
 // 获取商品列表数据
@@ -50,7 +49,7 @@ router.get('/shop_list',function (req,res){
         }else{
           let b = JSON.parse(body).data.list;
         let data = {
-          code: 1,
+          code: 0,
           data: {
             list: filterListData(b)
           }

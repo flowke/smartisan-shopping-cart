@@ -7,7 +7,8 @@
     "start": "cross-env NODE_ENV=development node server.js",
     "dev": "webpack --env=development",
     "dist": "webpack --env=production",
-    "run:dist": "serve ./dist/app.js -S"
+    "run:dist": "serve ./dist/app.js -S",
+    "un": "npm install -D babel-core babel-loader babel-preset-react"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "history": "^4.7.2",
+    "query-string": "^5.0.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
@@ -42,6 +44,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.17",
+    "connect-history-api-fallback": "^1.5.0",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
     "express": "^4.16.2",
@@ -52,6 +55,7 @@
     "minimist": "^1.2.0",
     "open-browser-webpack-plugin": "0.0.5",
     "prop-types": "^15.6.0",
+    "serve": "^6.4.1",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",

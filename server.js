@@ -3,6 +3,8 @@ const webpackDevServer = require('webpack-dev-server');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const historyApiFallback = require('connect-history-api-fallback');
+
 const ip = require('ip');
 const express = require('express');
 
@@ -16,7 +18,7 @@ let strategyMerge = merge.strategy({
 });
 
 const options = {
-    contentBase: './',
+    contentBase: '/',
     publicPath: '/',
     noInfo: true,
     stats: {
@@ -33,13 +35,19 @@ newConfig = strategyMerge(config,{
     ],
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new OpenBrowserPlugin({url: `http://${ip.address()}:${port}/?react_pref`}),
+        // new OpenBrowserPlugin({url: `http://${ip.address()}:${port}/?react_pref`}),
     ]
 });
 
 const compiler = webpack(newConfig);
 
-app.use( webpackDevMiddleware(compiler, options));
+let middleware = webpackDevMiddleware(compiler, options);
+
+app.use(historyApiFallback({
+    index: '/index.html'
+}));
+
+app.use(middleware);
 app.use( webpackHotMiddleware(compiler));
 
 app.get('/*', (req, res)=> res.sendFile(__dirname + '/index.html') );

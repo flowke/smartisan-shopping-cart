@@ -9,10 +9,10 @@ const GET_GOODS = 'GET_GOODS/shopping-car/shop';
 let getGoodsListAction = ()=> dispatch=> {
 
     goodsAPI.getGoodsList().then(({code,data})=>{
-        if(code===1){
+
+        if(code===0){
             dispatch({type: GET_GOODS, goods:data.list});
         }
-
     })
 }
 

@@ -35,14 +35,18 @@ export default {
     /**
      * 获取商品详情
      * id: 商品 id
-     * params:
-     *     {
-     *         with_spu_sku=true&with_stock=true'
-     *     }
      */
-    getGoodsDetail(id,params={with_spu_sku:true,with_stock:true}) {
+    getGoodsDetail(id) {
         return req.get(`/shop_details`,{
-            params:{...params}
-        });
+            params:{id}
+        })
+            .then(res=>{
+                if(res.status===200){
+                    return res.data;
+                }else{
+                    throw 'wrong';
+                }
+            })
+        ;
     }
 }

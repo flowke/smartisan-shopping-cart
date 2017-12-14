@@ -60,7 +60,7 @@ function filterListData(data){
 
       item.sku_info.forEach((item2) => {
         if(!sku_list.find((item3) => item3.color_id === item2.color_id )){
-          let {direct_to_cart,ali_image,sku_id,sub_title,title,color_id,price} 
+          let {direct_to_cart,ali_image,sku_id,sub_title,title,color_id,price}
             = item2;
           let spec_json = item2.spec_json.map(function (json_item){
             let {image,show_name,spec_value_id} = json_item;
@@ -70,7 +70,7 @@ function filterListData(data){
           sku_list.push({direct_to_cart,ali_image,sku_id,sub_title,title,price,...spec_json[0],color_id})
         }
       })
-      
+
       return {id,name,price,image_pre:'http://img01.smartisanos.cn/',
         sku_list: sku_list
       }
@@ -81,6 +81,9 @@ exports.filterListData = filterListData;
 
 // 处理详情页的需要的数据
 function filtershopDetails(datas){
+
+  if(!datas.data) return {code:1};
+
   let {
     code,
     data : {
@@ -99,7 +102,7 @@ function filtershopDetails(datas){
         spec_json,
         spec_v2
       },
-      sku_list 
+      sku_list
     }
   } = datas;
 
@@ -120,14 +123,14 @@ function filtershopDetails(datas){
         title,
         spec_json,
         spec_v2
-      } 
+      }
     }
   }
   d.data.sku_list = datas.data.sku_list.map(function(item){
     let {id,sku_id,attr_info} = item
     return {id,sku_id,attr_info}
   })
-   
+
 
   return d
 }

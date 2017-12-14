@@ -38,8 +38,27 @@ export default class Header extends Component{
                                     </div>
                                 </div>
                             </li>
+                            <li className="nav-cart">
+                                <a href="javascript:;" className="ball-rect">购物车</a>
+                                {/* <!--根据className改变颜色--> */}
+                                <span className={`cart-num ${ 0? "cart-num-have":''}` }>
+                                    <i>{0}</i>
+                                </span>
+                                {/* <CarPanel/> */}
+                                {/* <transition
+                                    name="ball"
+                                    v-on:before-enter="beforeEnter"
+                                    v-on:enter="enter"
+                                    v-on:after-enter="afterEnter"
+                                    v-bind:css="true"
+                                    >
+                                    <div className="addcart-mask" v-show="ball.show">
+                                        <img className="mask-item"></img>
+                                    </div>
+                                </transition> */}
+                            </li>
                             {/* <!--active--> */}
-                            <CarPanel/>
+
                             {/* <car-panel className="nav-cart"></car-panel> */}
                         </ul>
                         <ul className="nav-list">
