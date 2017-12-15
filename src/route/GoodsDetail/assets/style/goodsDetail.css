@@ -155,6 +155,36 @@ item-box img{
     width: 100%;
     border-radius: 50%;
 }
+.params-normal {
+    float: left;
+    line-height: 36px;
+    margin: -10px 0 0 -10px;
+    width: 402px;
+}
+.params-normal>li {
+    float: left;
+    margin: 10px 0 0 10px;
+}
+.params-normal>li.cur a {
+    border: 1px solid #999;
+    border: 0 solid rgba(226,226,226,1);
+    box-shadow: inset 0 0 0 2px #B2B2B2;
+}
+.params-normal>li a {
+    display: block;
+    min-width: 16px;
+    padding: 0 10px;
+    text-align: center;
+    color: #757575;
+    border: 1px solid #dbdbdb;
+    border: 0 solid rgba(226,226,226,1);
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 1px #dbdbdb;
+}
+.params-colors>li.disable a, .params-normal>li.disable a {
+ cursor: not-allowed;
+  opacity: .6;
+}
 .item-box .banner .sku-dynamic-params{
 	margin-bottom: 19px;
 }

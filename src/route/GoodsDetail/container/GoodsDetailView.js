@@ -33,11 +33,52 @@ export default class GoodsDetailView extends Component{
         });
     }
 
+    //
+    selectOtherStyle = (id)=>{
+
+    }
+
+    calcStyleStatus(curtAttrInfo, specV2, skuList){
+        let arr = curtAttrInfo.keys();
+
+        function a(arr, mainArr, subArr, indxM, indxS){
+
+            let spec = arr[indx];
+
+            spec.spec_values.forEach(item=>{
+
+                subArr.push({
+                    spec_id: spec.spec_id,
+                    value: item.spec_value_id
+                });
+
+                if(arr.length !== indx+1  ){
+                    if(){}
+                    a(arr, mainArr, subArr, ++indx);
+                };
+
+            });
+        };
+
+        specV2.forEach((spec, i)=>{
+            let spec_value_arr = [];
+            spec.spec_values.forEach({value, j}=>{
+                spec_value_arr.push({
+                    spec_id: spec,
+                    value: spec_value_id,
+                })
+            })
+
+        });
+    }
+
     componentDidMount(){
         let {id} = qs.parse(this.props.location.search);
         // 请求商品详情数据
         this.props.getGoodsDetailAction(id);
     }
+
+
 
     render(){
 
@@ -51,15 +92,17 @@ export default class GoodsDetailView extends Component{
             id,
             price,
             spu_id,
+            attr_info,
             shop_info,
             sku_list
         } = this.props.detailData;
 
         let {aliImagesIndx} = this.state;
 
-        let { ali_images } = shop_info;
+        let { ali_images, spec_v2 } = shop_info;
 
-        let sepcV2Comp = shop_info.spec_v2.map(spec=>{
+        let sepcV2Comp = spec_v2.map(spec=>{
+            // spec_id 代表那个属性， 是 颜色(1)，还是 接口(19)
             let {spec_id, spec_values, show_type} = spec;
             return (
                 <div
@@ -77,15 +120,26 @@ export default class GoodsDetailView extends Component{
                         {
                             spec_values.map(spec_value=>{
                                 let {id, show_name, image} = spec_value;
+
+                                // 表明哪个属性的选项被勾选 （红色还是蓝色，3.5的接口还是 type-c）
+                                let canCheck = sku_list.some(item=> (
+
+                                    item.attr_info[spec_id].spec_value_id === id
+                                ));
+                                let isChecked = attr_info[spec_id].spec_value_id === id;
+                                console.log(canCheck, isChecked);
                                 return (
                                     <li
                                         key={id}
-                                        className="{'cur': shopDetailList.attr_info[spec.spec_id].spec_value_id == values.id}"
                                         className={
-                                            spec.show_type === '1' ? 'cur' : ''
+                                            !canCheck ? 'disable' : (
+                                                isChecked ? 'cur' : ''
+                                            )
                                         }
                                     >
-                                        <a>
+                                        <a
+                                            onClick={()=>this.selectOtherStyle( canCheck )}
+                                        >
                                             {
                                                 spec.show_type === '2' ? (
                                                     <img src={image}/>
