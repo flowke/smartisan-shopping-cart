@@ -1,0 +1,6 @@
+.ball-enter-active{
+transition: .5s cubic-bezier(.15,.69,.6,1.29);
+}
+.ball-enter-active .mask-item{
+transition: .5s cubic-bezier(0,0,1,1);
+}

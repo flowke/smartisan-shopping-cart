@@ -1,9 +1,8 @@
 
-
 export default (load) => {
 
     return class extends Component{
-        
+
         state = {
             Comp: null
         }

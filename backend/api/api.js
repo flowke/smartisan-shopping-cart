@@ -1,4 +1,5 @@
 const express = require('express')
+const qs = require('query-string');
 const router = express.Router()
 
 const request = require('request')
@@ -12,9 +13,9 @@ let detailsUrl = `https://www.smartisan.com/product/skus/`;
 
 router.get('/shop_details',function (req,res){
     let {id} = req.query;
-    console.log(id)
+    console.log(id);
     let url = detailsUrl + id+'?with_spu_sku=true&with_stock=true';
-    console.log(url)
+    console.log(url);
     request.get(url, function (error,responese,body) {
     if(error){
         return
@@ -77,7 +78,29 @@ router.get('/add_car', function (req,res) {
       res.send(filterSku(body))
     }
   })
-})
+});
+
+
+// 查看商品信息，比如在不在库存
+// with_stock=true 查看
+// with_stock=true&&with_spu=true 添加到购物车请求
+router.get('/skus', function (req,res) {
+  let { ids,with_stock, with_spu} = req.query;
+  request.get(`https://www.smartisan.com/product/skus?${qs.stringify({ids,with_stock, with_spu})}`,{
+    headers: {
+      Referer: 'http://www.smartisan.com/shop/'
+    }
+  },function(error,responese,body) {
+    if(error){
+      res.send({
+        code:1,
+        error: '请求错误'
+      })
+    }else{
+      res.send(filterSku(body))
+    }
+  })
+});
 
 /**
  *

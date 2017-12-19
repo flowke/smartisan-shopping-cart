@@ -33,43 +33,59 @@ export default class GoodsDetailView extends Component{
         });
     }
 
-    //
+    // 选择另外一个款式的商品
     selectOtherStyle = (id)=>{
+
+        let {location, history, getGoodsDetailAction} = this.props;
+        this.setState({
+            aliImagesIndx: 0
+        });
+        history.push({
+            pathname: location.pathname,
+            search: qs.stringify({id})
+        });
+        getGoodsDetailAction(id, true);
+
+
+
 
     }
 
-    calcStyleStatus(curtAttrInfo, specV2, skuList){
-        let arr = curtAttrInfo.keys();
+    // 为每个选项提供商品 id
+    getGoodsID( spec_id, spec_value_id){
 
-        function a(arr, mainArr, subArr, indxM, indxS){
+        let {attr_info, sku_list} = this.props.detailData;
 
-            let spec = arr[indx];
-
-            spec.spec_values.forEach(item=>{
-
-                subArr.push({
-                    spec_id: spec.spec_id,
-                    value: item.spec_value_id
-                });
-
-                if(arr.length !== indx+1  ){
-                    if(){}
-                    a(arr, mainArr, subArr, ++indx);
-                };
-
-            });
+        // 当前的属性组合
+        let newAttrInfo = {
+            ...attr_info,
+            [spec_id]: {spec_id, spec_value_id}
         };
 
-        specV2.forEach((spec, i)=>{
-            let spec_value_arr = [];
-            spec.spec_values.forEach({value, j}=>{
-                spec_value_arr.push({
-                    spec_id: spec,
-                    value: spec_value_id,
-                })
-            })
+        // 返回 商品 id 或 null
+        return sku_list.reduce( (accu,elt)=>{
 
-        });
+            // 遍历sku_list，期望找到一个存在的商品
+            // sku_list 是所有商品的组合
+            for(let key in elt.attr_info){
+
+                let curtID = newAttrInfo[key].spec_value_id,
+                    eltID = elt.attr_info[key].spec_value_id;
+
+                // 发现同一属性 的选项不一样，就退出这一次比较
+                // 比如： 颜色比较的时候， 一个是红色，一个是绿色，就退出，说明不是这个商品
+                // 如果每一个属性的选项都符合， 红色-红色， 3.5-3.5，
+                // 就说明找到了， for 能够正常结束
+                if( curtID !== eltID ){
+                    return accu;
+                };
+            };
+            // 如果躲避过了这一次循环，那么说明有这件商品存在
+
+            return elt.id;
+
+        }, null );
+
     }
 
     componentDidMount(){
@@ -77,8 +93,6 @@ export default class GoodsDetailView extends Component{
         // 请求商品详情数据
         this.props.getGoodsDetailAction(id);
     }
-
-
 
     render(){
 
@@ -121,24 +135,26 @@ export default class GoodsDetailView extends Component{
                             spec_values.map(spec_value=>{
                                 let {id, show_name, image} = spec_value;
 
+                                // 当前选项被点击后， 代表的商品 id
+                                let goodsID = this.getGoodsID(spec_id, id);
                                 // 表明哪个属性的选项被勾选 （红色还是蓝色，3.5的接口还是 type-c）
-                                let canCheck = sku_list.some(item=> (
-
-                                    item.attr_info[spec_id].spec_value_id === id
-                                ));
                                 let isChecked = attr_info[spec_id].spec_value_id === id;
-                                console.log(canCheck, isChecked);
+
                                 return (
                                     <li
                                         key={id}
                                         className={
-                                            !canCheck ? 'disable' : (
+                                            !goodsID ? 'disable' : (
                                                 isChecked ? 'cur' : ''
                                             )
                                         }
                                     >
                                         <a
-                                            onClick={()=>this.selectOtherStyle( canCheck )}
+                                            onClick={
+                                                !isChecked && goodsID ?
+                                                    ()=>this.selectOtherStyle(goodsID)
+                                                : undefined
+                                            }
                                         >
                                             {
                                                 spec.show_type === '2' ? (
@@ -175,6 +191,9 @@ export default class GoodsDetailView extends Component{
                                                     <li
                                                         key={indx}
                                                         onClick={()=>this.switchAliImagesIndx(indx)}
+                                                        className={
+                                                            aliImagesIndx === indx ? "on": ""
+                                                        }
                                                     >
                                                         <img src={`${src}?x-oss-process=image/resize,w_54/quality,Q_90/format,webp`}
                                                         />

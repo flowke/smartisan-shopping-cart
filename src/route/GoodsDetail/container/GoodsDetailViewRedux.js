@@ -10,12 +10,15 @@ const GET_GOODS_DETAIL = 'GET_GOODS_DETAIL/shopping-car/GoodsDetail';
 const GET_GOODS_DETAIL_SUCCESS = 'GET_GOODS_DETAIL_SUCCESS/shopping-car/GoodsDetail';
 const GET_GOODS_DETAIL_ERROR = 'GET_GOODS_DETAIL_ERROR/shopping-car/GoodsDetail';
 
-let getGoodsDetailAction = (id)=> dispatch=> {
+let getGoodsDetailAction = (id, isSilence)=> dispatch=> {
 
-    dispatch({type:GET_GOODS_DETAIL});
+    if(!isSilence){
+        dispatch({type:GET_GOODS_DETAIL});
+    }
 
     goodsAPI.getGoodsDetail(id).then(({code,data})=>{
         if(code===0){
+
             dispatch({type: GET_GOODS_DETAIL_SUCCESS, payload:data});
         }
 

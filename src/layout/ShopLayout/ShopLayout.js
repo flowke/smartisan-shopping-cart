@@ -1,4 +1,5 @@
 import Header from 'container/Header';
+import ShopHeader from 'component/ShopHeader';
 
 export default class ShopLayout extends Component{
     constructor(props){
@@ -9,7 +10,9 @@ export default class ShopLayout extends Component{
         let {children} = this.props;
         return (
             <div id="app">
-                <Header></Header>
+                <Header>
+                    <ShopHeader/>
+                </Header>
                 {children}
             </div>
         )

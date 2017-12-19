@@ -16,6 +16,16 @@ let getGoodsListAction = ()=> dispatch=> {
     })
 }
 
+let checkGoodsInStockAction = ()=> dispatch=> {
+
+    goodsAPI.getGoodsList().then(({code,data})=>{
+
+        if(code===0){
+            dispatch({type: GET_GOODS, goods:data.list});
+        }
+    })
+}
+
 export default function shop(state=initState, action) {
     let {
         type,

@@ -1,0 +1,50 @@
+/*次导航*/
+.nav-sub{
+	position: relative;
+    z-index: 20;
+    height: 90px;
+}
+.nav-sub-wrapper{
+	padding: 31px 0;
+    height: 28px;
+    position: relative;
+}
+.nav-sub .nav-list{
+	float: left;
+    height: 28px;
+    line-height: 28px;
+}
+.nav-sub .nav-list li{
+	position: relative;
+    float: left;
+    padding-left: 2px;
+}
+.nav-sub .nav-list li:first-child{
+	padding-left: 0;
+}
+.nav-sub .nav-list li:before{
+	content: ' ';
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 2px;
+    height: 2px;
+    background: #bdbdbd;
+}
+.nav-sub .nav-list li:first-child:before{
+	display: none;
+}
+.nav-sub .nav-list li a{
+	display: block;
+    padding: 0 20px;
+    color: #666;
+}
+.nav-sub .nav-list li:first-child a{
+	padding-left: 10px;
+}
+.nav-sub .nav-list li a.active{
+	font-weight: 700;
+}
+.nav-sub .nav-list li a:hover{
+	color: #6b95ea;
+}

@@ -48,5 +48,38 @@ export default {
                 }
             })
         ;
-    }
+    },
+
+    /**
+     * 获取商品信息， 比如你需要查看是否有库存，或放在购物车中需要显示的
+     * 信息
+     */
+
+    getGoodsInfo({ids,with_stock, with_spu}={}){
+        return req.get(`/skus`,{
+            params:{ids,with_stock, with_spu}
+        })
+            .then(res=>{
+                if(res.status===200){
+                    return res.data;
+                }else{
+                    throw 'wrong';
+                }
+            })
+        ;
+    },
+
+    getCount(skuId,count){
+        return req.get(`/count`,{
+            params:{skuId, count}
+        })
+            .then(res=>{
+                if(res.status===200){
+                    return res.data;
+                }else{
+                    throw 'wrong';
+                }
+            })
+        ;
+    },
 }
