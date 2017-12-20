@@ -13,9 +13,9 @@ export default class GoodsItem extends Component{
         inStoreList: []
     };
 
+    // 控制能不能发起库存请求
+    // 只能请求一次
     canCheckInStock = true;
-
-    isInStockCheck = false;
 
     // 切换不同外观
     switchOption = (indx)=>{
@@ -23,6 +23,7 @@ export default class GoodsItem extends Component{
     }
 
     // 请求当前库存
+    // 在 hover 到某个商品的时候调用一次
     checkGoodsInStock = ()=>{
 
         let {sku_list} = this.props;
@@ -53,6 +54,10 @@ export default class GoodsItem extends Component{
 
     // 添加到购物车
     addToCart = ()=>{
+        let { sku_list } = this.props;
+        let { curtItemIndx } = this.state;
+
+        this.props.addToCartAction( sku_list[curtItemIndx].sku_id );
     }
 
     render(){
@@ -72,7 +77,7 @@ export default class GoodsItem extends Component{
             inStoreList
         } = this.state;
 
-        // 当前显示的外观物品
+        // 当前显示的颜色款式
         let curtItem = sku_list[curtItemIndx];
 
         // 是否显示 添加到购物车或售罄按钮
@@ -87,7 +92,7 @@ export default class GoodsItem extends Component{
             return elt.id===curtItem.sku_id ? elt : accu
         },{}).in_stock;
 
-
+        // 颜色的小选项组件
         let optionItemComp = sku_list.map((item,indx)=>{
             return item.color_id ? (
                 <li key={item.sku_id} >
@@ -136,12 +141,12 @@ export default class GoodsItem extends Component{
                             isShowStockButton ? (
                                 isInStock ? (
                                     <span
-                                        click="addCarPanelHandle(item.sku_info[itemIndex])" className="item-blue-btn"
+                                        onClick={this.addToCart}
+                                        className="item-blue-btn"
                                     >
                                     加入购物车 </span>
                                 ) : (
-                                    <span
-                                        click="addCarPanelHandle(item.sku_info[itemIndex])" className="item-blue-btn"
+                                    <span className="item-blue-btn"
                                     >
                                     售罄 </span>
                                 )

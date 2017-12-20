@@ -53,7 +53,10 @@ export default {
     /**
      * 获取商品信息， 比如你需要查看是否有库存，或放在购物车中需要显示的
      * 信息
+     *
      */
+     // with_stock=true 查看
+     // with_stock=true&&with_spu=true 添加到购物车请求
 
     getGoodsInfo({ids,with_stock, with_spu}={}){
         return req.get(`/skus`,{

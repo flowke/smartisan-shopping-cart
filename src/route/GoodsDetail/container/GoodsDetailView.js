@@ -45,10 +45,6 @@ export default class GoodsDetailView extends Component{
             search: qs.stringify({id})
         });
         getGoodsDetailAction(id, true);
-
-
-
-
     }
 
     // 为每个选项提供商品 id
@@ -68,7 +64,6 @@ export default class GoodsDetailView extends Component{
             // 遍历sku_list，期望找到一个存在的商品
             // sku_list 是所有商品的组合
             for(let key in elt.attr_info){
-
                 let curtID = newAttrInfo[key].spec_value_id,
                     eltID = elt.attr_info[key].spec_value_id;
 

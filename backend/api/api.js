@@ -15,7 +15,7 @@ router.get('/shop_details',function (req,res){
     let {id} = req.query;
     console.log(id);
     let url = detailsUrl + id+'?with_spu_sku=true&with_stock=true';
-    console.log(url);
+
     request.get(url, function (error,responese,body) {
     if(error){
         return
@@ -83,10 +83,13 @@ router.get('/add_car', function (req,res) {
 
 // 查看商品信息，比如在不在库存
 // with_stock=true 查看
-// with_stock=true&&with_spu=true 添加到购物车请求
+// with_stock=true&with_spu=true 添加到购物车请求
 router.get('/skus', function (req,res) {
   let { ids,with_stock, with_spu} = req.query;
-  request.get(`https://www.smartisan.com/product/skus?${qs.stringify({ids,with_stock, with_spu})}`,{
+  let url = `https://www.smartisan.com/product/skus?${qs.stringify({ids,with_stock, with_spu})}`;
+  // let url = `https://www.smartisan.com/product/skus?ids=${ids}&with_stock=true&with_spu=true`;
+  console.log(url);
+  request.get(url,{
     headers: {
       Referer: 'http://www.smartisan.com/shop/'
     }
@@ -97,7 +100,7 @@ router.get('/skus', function (req,res) {
         error: '请求错误'
       })
     }else{
-      res.send(filterSku(body))
+      res.send(body)
     }
   })
 });

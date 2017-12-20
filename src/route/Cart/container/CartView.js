@@ -7,6 +7,7 @@ export default class Name extends Component{
     }
 
     render(){
+
         return (
             <div id="main" className="hander-car">
         		<div className="store-content">

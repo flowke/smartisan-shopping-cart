@@ -201,6 +201,16 @@
     line-height: 14px;
     margin-top: 20px;
 }
+.nav-cart-list .item-desc h6 .price{
+	color: #d44d44;
+    font-weight: 700;
+}
+.nav-cart-list .item-desc h6 .price-num{
+	margin-left: 5px; font-size: 14px;
+}
+.nav-cart-list .item-desc h6 .item-num{
+	margin-left: 10px; 
+}
 .nav-cart-list .del-btn{
 	cursor: pointer;
     display: none;

@@ -1,10 +1,12 @@
 import {bindActionCreators} from 'redux';
 
-
 import GoodsItem from 'component/GoodsItem/GoodsListItem';
 import '../assets/style/shop.css';
 
 import {actions} from './ShopViewRedux';
+import {actions as CartViewActions} from 'route/Cart/container/CartViewRedux';
+
+let {addToCartAction} = CartViewActions;
 
 @connect(
     state=>{
@@ -14,7 +16,7 @@ import {actions} from './ShopViewRedux';
         }
     },
     dispatch=>{
-        return bindActionCreators(actions,dispatch);
+        return bindActionCreators({...actions, addToCartAction},dispatch);
     }
 )
 export default class Shop extends Component{
@@ -30,7 +32,8 @@ export default class Shop extends Component{
     render(){
 
         let {
-            goods // 商品数据
+            goods, // 商品数据
+            addToCartAction
         } = this.props;
 
         let goodsComp = goods.map(data=>{
@@ -41,6 +44,9 @@ export default class Shop extends Component{
                 <GoodsItem
                     key={data.id}
                     {...data}
+                    {...{
+                        addToCartAction
+                    }}
                 />
             );
         });
