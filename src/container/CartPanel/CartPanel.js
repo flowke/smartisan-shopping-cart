@@ -3,11 +3,10 @@ import {Link} from 'react-router-dom';
 
 import {actions as cartViewActions} from 'route/Cart/container/CartViewRedux';
 
-let {initCartInfoAction, removeOneFromCartAction} = cartViewActions;
+let {initCartInfoAction, removeFromCartAction} = cartViewActions;
 
 import CartGoodsItem from './CartGoodsItem';
 import './cartPanel.css';
-
 
 @connect(
     state=>({
@@ -15,7 +14,7 @@ import './cartPanel.css';
     }),
     dispatch=> bindActionCreators( {
         initCartInfoAction,
-        removeOneFromCartAction
+        removeFromCartAction
     }, dispatch )
 )
 export default class CartPanel extends Component{
@@ -38,7 +37,7 @@ export default class CartPanel extends Component{
 
         let {
             cartInfo,
-            removeOneFromCartAction
+            removeFromCartAction
         } = this.props;
 
         let cartGoodsLength = cartInfo.length;
@@ -55,8 +54,9 @@ export default class CartPanel extends Component{
                 className="nav-cart"
                 onMouseEnter={this.togglePanel}
                 onMouseLeave={this.togglePanel}
+
             >
-                <a href="javascript:;" className="ball-rect">购物车</a>
+                <Link to="/cart" className="ball-rect">购物车</Link>
                 {/* <!--根据className改变颜色--> */}
                 <span className={`cart-num ${ cartGoodsLength? "cart-num-have":''}` }>
                     <i>{countInfo.num}</i>
@@ -86,7 +86,7 @@ export default class CartPanel extends Component{
                                                             key={indx}
                                                             {...item}
                                                             {...{
-                                                                removeOneFromCartAction
+                                                                removeFromCartAction
                                                             }}
                                                         />
                                                     )

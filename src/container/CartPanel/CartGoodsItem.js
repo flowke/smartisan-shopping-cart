@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 
 export default function(props){
-    let {removeOneFromCartAction} = props;
+    let {removeFromCartAction} = props;
     return (
         <li className="clear">
             <div className="cart-item js-cart-item cart-item-sell">
@@ -33,8 +33,8 @@ export default function(props){
                     <div
                         className="del-btn"
                         onClick={()=>{
-                            
-                            removeOneFromCartAction(props.skuId)
+
+                            removeFromCartAction([props.skuId])
                         }}
                     >删除</div>
                 </div>

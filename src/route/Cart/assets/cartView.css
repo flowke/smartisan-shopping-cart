@@ -28,7 +28,7 @@
 .cart-box .empty-label{
 	height: 49px;
     padding: 385px 0 0 0;
-    background: url(../assets/img/cart-box-empty.png) no-repeat center 50px;
+    background: url(./img/cart-box-empty.png) no-repeat center 50px;
     text-align: center;
 }
 .cart-box .empty-label h3{
@@ -108,12 +108,12 @@
     position: relative;
     width: 20px;
     height: 20px;
-    background: url(../assets/img/checkbox-new.png) no-repeat 0 -20px;
+    background: url(./img/checkbox-new.png) no-repeat 0 -20px;
     cursor: pointer;
     vertical-align: middle;
 }
 .cart-box .checkbox-on{
-	background: url(../assets/img/checkbox-new.png) no-repeat 0 0;
+	background: url(./img/checkbox-new.png) no-repeat 0 0;
 }
 .cart-box .cart-items .items-thumb{
 	position: relative;
@@ -191,7 +191,7 @@
     height: 24px;
     margin: 0 auto;
     color: #C2C2C2;
-    background: url(../assets/img/delete-btn-icon.jpg);
+    background: url(./img/delete-btn-icon.jpg);
     background-size: 100% auto;
     transition: none;
 }
@@ -220,8 +220,8 @@
     width: 34px;
     height: 37px;
     margin-right: 5px;
-    background: url(../assets/img/cart-updown.jpg) no-repeat;
-    background-image: url(../assets/img/cart-updown.jpg);
+    background: url(./img/cart-updown.jpg) no-repeat;
+    background-image: url(./img/cart-updown.jpg);
     background-size: 100% auto;
     line-height: 40px;
     text-indent: -9999em;

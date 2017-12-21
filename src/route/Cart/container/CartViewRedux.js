@@ -52,7 +52,7 @@ const addToCartAction = (skuId, count=1)=> (dispatch, getState)=> {
     // 否则就是更新一下某个 被添加商品的数量
     if( !storageITEM.hasOwnProperty(skuId) ){
 
-        dispatch( addNewOneToCartAction(skuId) );
+        dispatch( addNewOneToCartAction(skuId, count) );
 
     // 如果 localStorage 里面有相关记录, 说明更新某一个被添加商品的数量
     }else{
@@ -95,18 +95,26 @@ const updateCartCountAction = ( skuId ,count=1)=> (dispatch, getState) => {
     dispatch( updateCartInfoAction(cartInfo) );
 }
 
-const removeOneFromCartAction = (skuId)=>(dispatch, getState)=>{
+const removeFromCartAction = (skuIds=[])=>(dispatch, getState)=>{
 
     let cartInfo = getState().cart.cartInfo;
 
     let storageITEM = getStorageITEM();
 
-    storageITEM[skuId] = undefined;
+    skuIds.forEach(skuId=>{
+        storageITEM[skuId] = undefined;
+    });
+
 
     // 更新 localStorage
     setStorageITEM(storageITEM);
 
-    dispatch(updateCartInfoAction( cartInfo.filter(item=>item.skuId!==skuId) ));
+    cartInfo = cartInfo.filter(item=>{
+
+        return !skuIds.some(id=>item.skuId===id);
+    } );
+
+    dispatch(updateCartInfoAction( cartInfo ));
 
 }
 
@@ -120,7 +128,7 @@ const removeOneFromCartAction = (skuId)=>(dispatch, getState)=>{
 const updateCartInfoAction = (cartInfo)=>dispatch=>dispatch({type: UPDATE_CART_INFO, payload: cartInfo});
 
 
-const addNewOneToCartAction = (skuId)=> (dispatch, getState) =>{
+const addNewOneToCartAction = (skuId, count)=> (dispatch, getState) =>{
     let cartInfo = getState().cart.cartInfo;
 
     goodsAPI.getGoodsInfo({
@@ -141,7 +149,7 @@ const addNewOneToCartAction = (skuId)=> (dispatch, getState) =>{
             let storageITEM = getStorageITEM();
 
             let storageData = {
-                count: 1,
+                count,
                 ctime: new Date().getTime(),
                 skuId: skuId,
             };
@@ -192,7 +200,7 @@ export const actions = {
     addToCartAction,
     initCartInfoAction,
     updateCartCountAction,
-    removeOneFromCartAction
+    removeFromCartAction
 };
 
 

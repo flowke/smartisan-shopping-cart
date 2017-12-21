@@ -1,9 +1,13 @@
 import qs from 'query-string';
 import {bindActionCreators} from 'redux';
-import {actions} from './GoodsDetailViewRedux';
 import {Link} from 'react-router-dom';
 
 import Loading from 'component/Loading/loading';
+
+import {actions} from './GoodsDetailViewRedux';
+import {actions as cartViewActions} from 'route/Cart/container/CartViewRedux';
+
+let {addToCartAction} = cartViewActions;
 
 import '../assets/style/goodsDetail.css';
 
@@ -18,12 +22,16 @@ import '../assets/style/goodsDetail.css';
             ...goodsDetail
         }
     },
-    dispatch=>bindActionCreators(actions,dispatch)
+    dispatch=>bindActionCreators({
+        ...actions,
+        addToCartAction
+    },dispatch)
 )
 export default class GoodsDetailView extends Component{
 
     state = {
-        aliImagesIndx: 0
+        aliImagesIndx: 0,
+        buyQuantity: 1
     }
 
     // 切换同一款式的 不同展示图片
@@ -38,7 +46,8 @@ export default class GoodsDetailView extends Component{
 
         let {location, history, getGoodsDetailAction} = this.props;
         this.setState({
-            aliImagesIndx: 0
+            aliImagesIndx: 0,
+            buyQuantity: 1
         });
         history.push({
             pathname: location.pathname,
@@ -79,8 +88,24 @@ export default class GoodsDetailView extends Component{
 
             return elt.id;
 
-        }, null );
+        }, undefined );
 
+    }
+
+    // 加减 数量
+    adjustTheQuantity=(isIncrement=true)=>{
+
+        let factor = 1;
+
+        if(!isIncrement && this.state.buyQuantity===1){
+            return;
+        }
+
+        if(!isIncrement){
+            factor = -1;
+        }
+
+        this.setState(s=>({buyQuantity: s.buyQuantity + factor}));
     }
 
     componentDidMount(){
@@ -91,7 +116,12 @@ export default class GoodsDetailView extends Component{
 
     render(){
 
-        let {isLoading, error , detailData} = this.props;
+        let {
+            isLoading,
+            error ,
+            detailData,
+            addToCartAction
+        } = this.props;
 
         if(isLoading){
             return <Loading/> ;
@@ -106,7 +136,7 @@ export default class GoodsDetailView extends Component{
             sku_list
         } = this.props.detailData;
 
-        let {aliImagesIndx} = this.state;
+        let {aliImagesIndx, buyQuantity} = this.state;
 
         let { ali_images, spec_v2 } = shop_info;
 
@@ -229,13 +259,13 @@ export default class GoodsDetailView extends Component{
                                     <div className="params-detail clear">
                                         <div className="item-num js-select-quantity">
                                             <span
-                                                click="minusHandle"
-                                                className='{"down-disabled": num == 1}'
-                                                className="down"
+                                                onClick={()=>this.adjustTheQuantity(false)}
+
+                                                className={`down ${buyQuantity===1?"down-disabled":''}`}
                                             >-</span>
-                                            <span className="num">{3}</span>
+                                            <span className="num">{buyQuantity}</span>
                                             <span
-                                                click="addHandle"
+                                                onClick={this.adjustTheQuantity}
 
                                                 className='{"down-disabled": num == 5}'
                                                 className="up"
@@ -247,7 +277,7 @@ export default class GoodsDetailView extends Component{
                             <div className="sku-status">
                                 <div className="cart-operation-wrapper clearfix">
                                     <span
-                                        click="addCar"
+                                        onClick={()=>addToCartAction(id,buyQuantity)}
                                         className="blue-title-btn js-add-cart"
                                     >
                                         <a>加入购物车</a>
