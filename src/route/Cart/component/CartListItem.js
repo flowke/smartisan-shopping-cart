@@ -45,7 +45,7 @@ export default function(props){
                                 props.updateCartCountAction(props.skuId, -1);
                             }}
                         >-</span>
-
+                        
                         <span className="num">{props.count}</span>
 
                         <span

@@ -12,7 +12,7 @@ let wrapper = Comp => (props) => {
         let {to} = props;
 
         let params = [];
-
+        
         if(typeof to === 'string'){
             params = [to];
         }else{

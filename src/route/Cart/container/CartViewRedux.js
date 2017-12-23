@@ -3,11 +3,12 @@ import goodsAPI from 'api/goodsAPI';
 const initState = {
     isLoading: true,
     error: false,
+    isCountOverflow: false,
     cartInfo:[]
 };
 
 const UPDATE_CART_INFO = 'UPDATE_CART_INFO/shopping-cart/cartView';
-const ADD_TO_CART = 'ADD_TO_CART/shopping-cart/cartView';
+const SWITCH_CAET_COUNT_OVERFLOW = 'SWITCH_CAET_COUNT_OVERFLOW/shopping-cart/cartView';
 
 /**
  * start 提供给外部使用的 action
@@ -47,6 +48,16 @@ const initCartInfoAction = ()=> (dispatch, getState) =>{
 const addToCartAction = (skuId, count=1)=> (dispatch, getState)=> {
 
     let storageITEM = getStorageITEM();
+
+    // 如果之前被添加到购物车，就得检查还能不能添加，不能超过最大购买数量
+    // 这里可能会发生退出
+    if(storageITEM.hasOwnProperty(skuId)){
+        let item = storageITEM[skuId];
+        if(count+item.count>item.maxCount){
+            dispatch( switchCartCountPromptAction(true) );
+            return;
+        }
+    }
 
     // 如果 localstorage 没有相关记录, 说明添加一个新的
     // 否则就是更新一下某个 被添加商品的数量
@@ -111,11 +122,16 @@ const removeFromCartAction = (skuIds=[])=>(dispatch, getState)=>{
 
     cartInfo = cartInfo.filter(item=>{
 
-        return !skuIds.some(id=>item.skuId===id);
+        return !skuIds.some(id=>item.skuId==id);
     } );
 
     dispatch(updateCartInfoAction( cartInfo ));
 
+}
+
+const switchCartCountPromptAction=(isShow=false)=>dispatch=>{
+
+    dispatch({type:SWITCH_CAET_COUNT_OVERFLOW, payload: isShow});
 }
 
 /**
@@ -152,7 +168,10 @@ const addNewOneToCartAction = (skuId, count)=> (dispatch, getState) =>{
                 count,
                 ctime: new Date().getTime(),
                 skuId: skuId,
+                maxCount: infoData.maxCount
             };
+
+
 
             let goods = {
                 ...infoData,
@@ -170,7 +189,6 @@ const addNewOneToCartAction = (skuId, count)=> (dispatch, getState) =>{
     });
 
 }
-
 
 
 /**
@@ -191,6 +209,11 @@ export default function cart(state=initState, action) {
                 ...state,
                 cartInfo: [...payload]
             };
+        case SWITCH_CAET_COUNT_OVERFLOW:
+            return {
+                ...state,
+                isCountOverflow: payload
+            };
         default:
             return state;
     }
@@ -200,11 +223,13 @@ export const actions = {
     addToCartAction,
     initCartInfoAction,
     updateCartCountAction,
-    removeFromCartAction
+    removeFromCartAction,
+    switchCartCountPromptAction
 };
 
+// 辅助函数
 
-
+// 过滤服务器返回的数据
 function filterGoodsData(list) {
 
     return list.map( listItem=>{
@@ -213,18 +238,18 @@ function filterGoodsData(list) {
 
         let { sku_id, price, ali_image, spec_json, title } = info;
 
-        let storageInfo = {
-            count: 1,
-            ctime: new Date().getTime(),
-            skuId: sku_id,
-        };
+        // let storageInfo = {
+        //     count: 1,
+        //     ctime: new Date().getTime(),
+        //     skuId: sku_id,
+        // };
 
         return {
             title,
             price: price,
             img: ali_image,
             color: spec_json[0].show_name,
-            // maxCount: Math.min(data.stock, 5),
+            maxCount: listItem.stock!==undefined? Math.min(listItem.stock, 5) : 5,
             spuId: listItem.spu_id,
             skuId: sku_id
         };

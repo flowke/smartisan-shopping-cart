@@ -41,10 +41,9 @@ export default function Header(props){
                         {
                             isCartIconShow === true ? (<CartPanel/>) : null
                         }
-
                     </ul>
                     <ul className="nav-list">
-                        <li><a href="javascript:;">在线商城</a></li>
+                        <li><Link to="/">在线商城</Link></li>
                         <li><a href="javascript:;">坚果 Pro</a></li>
                         <li><a href="javascript:;">Smartisan M1 / M1L</a></li>
                         <li><a href="javascript:;">Smartisan OS</a></li>

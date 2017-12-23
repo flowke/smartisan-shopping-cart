@@ -10,7 +10,7 @@ let {
 } = actions;
 
 import CartListItem from '../component/CartListItem';
-import '../assets/cartView.css'
+import '../assets/cartView.css';
 
 @connect(
     state=>({
@@ -100,7 +100,7 @@ export default class CartView extends Component{
         }
 
         this.props.removeFromCartAction(ids);
-
+        console.log(ids, newCheckedInfo);
         this.setState({
             checkedInfo: newCheckedInfo
         });

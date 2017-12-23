@@ -40,14 +40,14 @@ export default class GoodsItem extends Component{
         })
             .then(({code,data})=>{
                 if(code===0){
-                    // console.log(code);
+
                     this.setState({
                         inStoreList: data.list.map(({id,in_stock})=>({
                             id: id.toString(),
                             in_stock
                         }))
                     });
-                    // console.log(this.state.inStoreList);
+
                 }
             })
     }

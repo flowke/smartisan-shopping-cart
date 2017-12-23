@@ -19,6 +19,8 @@ let getGoodsDetailAction = (id, isSilence)=> dispatch=> {
     goodsAPI.getGoodsDetail(id).then(({code,data})=>{
         if(code===0){
 
+            if(data.stock===undefined) data.stock = 5;
+
             dispatch({type: GET_GOODS_DETAIL_SUCCESS, payload:data});
         }
 

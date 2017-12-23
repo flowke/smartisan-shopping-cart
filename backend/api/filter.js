@@ -83,7 +83,7 @@ exports.filterListData = filterListData;
 function filtershopDetails(datas){
 
   if(!datas.data) return {code:1};
-
+    // console.log(datas);
   let {
     code,
     data : {
@@ -102,7 +102,8 @@ function filtershopDetails(datas){
         spec_json,
         spec_v2
       },
-      sku_list
+      sku_list,
+      stock
     }
   } = datas;
 
@@ -116,6 +117,7 @@ function filtershopDetails(datas){
       price,
       spu_id,
       attr_info,
+      stock,
       shop_info: {
         ali_image,
         ali_images,

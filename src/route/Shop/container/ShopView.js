@@ -1,5 +1,6 @@
 import {bindActionCreators} from 'redux';
 
+import Prompt from 'component/feedBack/CartCountPrompt';
 import GoodsItem from 'component/GoodsItem/GoodsListItem';
 import '../assets/style/shop.css';
 
@@ -10,9 +11,10 @@ let {addToCartAction} = CartViewActions;
 
 @connect(
     state=>{
-        let {shop} = state;
+        let {shop, cart:{isCountOverflow}} = state;
         return {
-            goods: shop.goodsList
+            goods: shop.goodsList,
+            isCountOverflow
         }
     },
     dispatch=>{
@@ -33,7 +35,8 @@ export default class Shop extends Component{
 
         let {
             goods, // 商品数据
-            addToCartAction
+            addToCartAction, //添加到购物车
+            isCountOverflow, //显示单件商品最大购买量溢出浮层
         } = this.props;
 
         let goodsComp = goods.map(data=>{
@@ -68,7 +71,7 @@ export default class Shop extends Component{
                         </div>
                     </div>
                 </div>
-                {/* <prompt v-if="maxCount"></prompt> */}
+                {isCountOverflow?<Prompt/>:null}
             </div>
         )
     }

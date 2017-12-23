@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {Link} from 'react-router-dom';
 
 import Loading from 'component/Loading/loading';
-
+import Prompt from 'component/feedBack/CartCountPrompt';
 import {actions} from './GoodsDetailViewRedux';
 import {actions as cartViewActions} from 'route/Cart/container/CartViewRedux';
 
@@ -94,10 +94,15 @@ export default class GoodsDetailView extends Component{
 
     // 加减 数量
     adjustTheQuantity=(isIncrement=true)=>{
+        let {stock=5} = this.props.detailData;
 
         let factor = 1;
-
+        // 当前件数 1
         if(!isIncrement && this.state.buyQuantity===1){
+            return;
+        }
+        // 当前件数 stock
+        if(isIncrement && this.state.buyQuantity>=stock){
             return;
         }
 
@@ -106,6 +111,16 @@ export default class GoodsDetailView extends Component{
         }
 
         this.setState(s=>({buyQuantity: s.buyQuantity + factor}));
+    }
+
+
+    componentWillReceiveProps(nP){
+        // 如果切换了路由
+        if(nP.location.key!==this.props.location.key){
+            let {id} = qs.parse(nP.location.search);
+
+            this.props.getGoodsDetailAction(id, true);
+        }
     }
 
     componentDidMount(){
@@ -133,8 +148,11 @@ export default class GoodsDetailView extends Component{
             spu_id,
             attr_info,
             shop_info,
-            sku_list
+            sku_list,
+            stock=5,
         } = this.props.detailData;
+
+        // if(stock===undefined) stock = 5;
 
         let {aliImagesIndx, buyQuantity} = this.state;
 
@@ -266,32 +284,34 @@ export default class GoodsDetailView extends Component{
                                             <span className="num">{buyQuantity}</span>
                                             <span
                                                 onClick={this.adjustTheQuantity}
-
-                                                className='{"down-disabled": num == 5}'
-                                                className="up"
+                                                className={`up ${buyQuantity>=stock?'up-disabled':''}`}
                                             >+</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="sku-status">
-                                <div className="cart-operation-wrapper clearfix">
-                                    <span
-                                        onClick={()=>addToCartAction(id,buyQuantity)}
-                                        className="blue-title-btn js-add-cart"
-                                    >
-                                        <a>加入购物车</a>
-                                    </span>
-                                    <span className="gray-title-btn"><a>现在购买</a></span>
-                                </div>
+                                {stock>0? (
+                                    <div className="cart-operation-wrapper clearfix">
+                                        <span
+                                            onClick={()=>addToCartAction(id,buyQuantity)}
+                                            className="blue-title-btn js-add-cart"
+                                        >
+                                            <a>加入购物车</a>
+                                        </span>
+                                        <span className="gray-title-btn"><a>现在购买</a></span>
+                                    </div>
+                                ):(
+                                    <div className="cart-operation-wrapper clearfix">
+                                        <span className="gray-title-btn"><a>售罄</a></span>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
-                {/* <Modal v-model='visble'>
-                        <div className="confirm-msg">商品已达到最大可购买数量，无法继续添加</div>
-                </Modal> */}
-                </div>
+                {/* <Prompt></Prompt> */}
+            </div>
         )
     }
 }
