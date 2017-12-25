@@ -88,7 +88,7 @@ router.get('/skus', function (req,res) {
   let { ids,with_stock, with_spu} = req.query;
   let url = `https://www.smartisan.com/product/skus?${qs.stringify({ids,with_stock, with_spu})}`;
   // let url = `https://www.smartisan.com/product/skus?ids=${ids}&with_stock=true&with_spu=true`;
-  console.log(url);
+
   request.get(url,{
     headers: {
       Referer: 'http://www.smartisan.com/shop/'

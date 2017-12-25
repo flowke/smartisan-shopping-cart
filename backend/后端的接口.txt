@@ -36,8 +36,8 @@
 请求地址：GET  /count
 作用：发送给后端购买商品的数量
 
-请求数据： 
-	
+请求数据：
+
 	第一种情况：发送给后端购买的商品的id和数量
 		{
 	 	skuId:  购买商品的id
@@ -48,7 +48,7 @@
 
 响应数据：
 			{
-				"code":0, 
+				"code":0,
 				"idsList":  // 加入购物车商品的id和数量
 				[
 					{
@@ -74,20 +74,20 @@
         "id": 					// 商品的id
         "in_stock":  			// true，有货，false，无货
         "name": 				// 商品的名字
-        "price": 
+        "price":
         "spu_id":  				// 这是这个商品的大分类
         "shop_info": {   		// 商品信息
           "limit_num":			// 能购买的最大数
           "ali_image": 			// 商品展示的图片
           "sub_title":  		// 小标题
           "title": 				// 标题
-          "spec_json": [  		// 规格说明 
+          "spec_json": [  		// 规格说明
             {
-              "spec_id": 
+              "spec_id":
               "spec_value_id":
               "show_name":   	// 展示的名字
-              "item_value": 
-              "image": 
+              "item_value":
+              "image":
             }
           ]
         }
@@ -103,7 +103,7 @@
 	skuId：要删除的商品的id
 响应数据：
 	{
-		"code":0, 
+		"code":0,
 		"idsList":  // 加入购物车商品的id和数量
 		[
 			{
