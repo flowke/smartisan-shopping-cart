@@ -2,6 +2,7 @@
 .nav-global{
 	height: 100px;
 	background-color: #000;
+    z-index: 999
 }
 .container{
 	height: 100%;

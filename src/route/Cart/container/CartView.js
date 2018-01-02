@@ -194,7 +194,7 @@ export default class CartView extends Component{
                             ) : null}
 
                             {hasCartItem? (
-                                <div v-else="l">
+                                <div>
                                     <div className="cart-table-title">
                                         <span className="name">商品信息</span>
                                         <span className="operation">操作</span>

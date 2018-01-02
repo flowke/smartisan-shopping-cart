@@ -1,0 +1,30 @@
+/* 购物车动画 */
+.ball-wrap{
+
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fff;
+  text-align: center;
+  position: relative;
+  z-index: 999;
+  overflow: hidden;
+}
+.ball-img{
+  width: 96%;
+  height: 96%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 50%;
+}
+
+/* .ball-entered{
+  transition: 1s cubic-bezier(.17,.67,.51,1.25);
+} */
+/* .ball-entering .ball-img{
+transition: 10s cubic-bezier(0,0,1,1);
+} */

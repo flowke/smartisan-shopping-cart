@@ -15,11 +15,12 @@ import '../assets/style/goodsDetail.css';
     state=>{
         let a =null;
         let {
-            goodsDetail
+            goodsDetail, cart: {isCountOverflow}
         } = state;
 
         return {
-            ...goodsDetail
+            ...goodsDetail,
+            isCountOverflow
         }
     },
     dispatch=>bindActionCreators({
@@ -135,7 +136,8 @@ export default class GoodsDetailView extends Component{
             isLoading,
             error ,
             detailData,
-            addToCartAction
+            addToCartAction,
+            isCountOverflow
         } = this.props;
 
         if(isLoading){
@@ -279,7 +281,7 @@ export default class GoodsDetailView extends Component{
                                             <span
                                                 onClick={()=>this.adjustTheQuantity(false)}
 
-                                                className={`down ${buyQuantity===1?"down-disabled":''}`}
+                                                className={`down ${buyQuantity<=1?"down-disabled":''}`}
                                             >-</span>
                                             <span className="num">{buyQuantity}</span>
                                             <span
@@ -310,7 +312,9 @@ export default class GoodsDetailView extends Component{
                         </div>
                     </div>
                 </div>
-                {/* <Prompt></Prompt> */}
+                {isCountOverflow?(
+                    <Prompt></Prompt>
+                ):null}
             </div>
         )
     }

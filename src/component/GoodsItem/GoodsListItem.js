@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 
 import goodsAPI from 'api/goodsAPI';
 
-import GoodsDropAnim from 'component/AnimUnit/GoodsDropAnim';
 import './goodsListItem.css';
 
 export default class GoodsItem extends Component{
@@ -47,17 +46,21 @@ export default class GoodsItem extends Component{
                             in_stock
                         }))
                     });
-
                 }
             })
     }
 
     // 添加到购物车
-    addToCart = ()=>{
+    // 点击了添加到购物车按钮
+    addToCart = (ev)=>{
         let { sku_list } = this.props;
         let { curtItemIndx } = this.state;
+        let {sku_id, ali_image} = sku_list[curtItemIndx];
 
-        this.props.addToCartAction( sku_list[curtItemIndx].sku_id );
+        let {left, width, top, height} = ev.target.getBoundingClientRect();
+
+        // 需要提供商品 id， 个数，动画的起点信息, 动画的图片
+        this.props.addToCartAction( sku_id, 1, {left, width, top, height}, ali_image );
     }
 
     render(){

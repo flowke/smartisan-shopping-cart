@@ -102,8 +102,7 @@ function filtershopDetails(datas){
         spec_json,
         spec_v2
       },
-      sku_list,
-      stock
+      sku_list
     }
   } = datas;
 

@@ -1,20 +1,23 @@
 import {bindActionCreators} from 'redux';
 import {Link} from 'react-router-dom';
+import GoodsDropAnim from './GoodsDropAnim';
 
 import {actions as cartViewActions} from 'route/Cart/container/CartViewRedux';
 
-let {initCartInfoAction, removeFromCartAction} = cartViewActions;
+let {initCartInfoAction, removeFromCartAction, toggleAnimInStatusAction} = cartViewActions;
 
 import CartGoodsItem from './CartGoodsItem';
 import './cartPanel.css';
 
 @connect(
     state=>({
-        cartInfo: state.cart.cartInfo
+        cartInfo: state.cart.cartInfo,
+        animInfo: state.cart.animInfo
     }),
     dispatch=> bindActionCreators( {
         initCartInfoAction,
-        removeFromCartAction
+        removeFromCartAction,
+        toggleAnimInStatusAction
     }, dispatch )
 )
 export default class CartPanel extends Component{
@@ -37,7 +40,9 @@ export default class CartPanel extends Component{
 
         let {
             cartInfo,
-            removeFromCartAction
+            animInfo,
+            removeFromCartAction,
+            toggleAnimInStatusAction
         } = this.props;
 
         let cartGoodsLength = cartInfo.length;
@@ -106,7 +111,13 @@ export default class CartPanel extends Component{
                         }
                     </div>
                 </div>
-
+                {/* 动画组件 */}
+                <GoodsDropAnim
+                    {...{
+                        toggleAnimInStatusAction,
+                        animInfo
+                    }}
+                />
             </li>
         )
     }

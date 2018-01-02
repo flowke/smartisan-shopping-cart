@@ -209,7 +209,7 @@
 	margin-left: 5px; font-size: 14px;
 }
 .nav-cart-list .item-desc h6 .item-num{
-	margin-left: 10px; 
+	margin-left: 10px;
 }
 .nav-cart-list .del-btn{
 	cursor: pointer;
@@ -273,7 +273,6 @@
     right: 20px;
     top: 20px;
     width: 108px;
-
 }
 .nav-aside .nav-cart-btn{
 	display: block;

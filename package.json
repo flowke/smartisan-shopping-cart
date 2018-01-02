@@ -78,7 +78,7 @@
     "plugins": [
       "syntax-dynamic-import",
       "transform-decorators-legacy",
-      "babel-plugin-transform-class-properties",
+      "transform-class-properties",
       "transform-object-rest-spread"
     ]
   }
