@@ -7,7 +7,7 @@
         "start": "cross-env NODE_ENV=development node server.js",
         "dev": "webpack --env=development",
         "dist": "webpack --env=production",
-        "run:dist": "serve ./dist/ -s -o",
+        "serve": "serve ./dist/ -s -o",
         "un": "npm install -D babel-core babel-loader babel-preset-react"
     },
     "repository": {

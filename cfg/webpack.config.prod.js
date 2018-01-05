@@ -21,9 +21,10 @@ let config = {
     },
     output: {
         path: dfPath.dist,
-        filename: 'assets/js/[name].bundle.js',
+        filename: 'assets/js/[name]_[chunkhash].bundle.js',
         publicPath: '/',
-        chunkFilename: 'assets/js/[name].sepChunk.js'
+        chunkFilename: 'assets/js/[name].sepChunk.js',
+		hashDigestLength: 6
     },
 
     module:{
