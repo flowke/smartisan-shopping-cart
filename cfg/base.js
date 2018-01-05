@@ -1,14 +1,15 @@
-const path = require('./path');
+const path = require('path');
+const dfPath = require('./path');
 const webpack = require('webpack');
 const Html = require('html-webpack-plugin');
 const CleanFolder = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: '../src/index.js'
+        app: path.resolve(dfPath.root,'src/index.js')
     },
     output: {
-        path: path.dist,
+        path: dfPath.dist,
         filename: '[name].bundle.js',
         publicPath: '/',
         chunkFilename: '[name].sepChunk.js'
@@ -60,7 +61,7 @@ module.exports = {
             template: './public/index.html'
         }),
         new CleanFolder(['dist'],{
-            root: path.root
+            root: dfPath.root
         }),
         new webpack.ProvidePlugin({
             React: 'react',
@@ -78,13 +79,13 @@ module.exports = {
     resolve:{
         modules:[
             'node_modules',
-            path.root,
-            path.src,
-            path.common,
-            path.route,
-            path.component,
-            path.layout,
-            path.store
+            dfPath.root,
+            dfPath.src,
+            dfPath.common,
+            dfPath.route,
+            dfPath.component,
+            dfPath.layout,
+            dfPath.store
         ]
     }
 };
