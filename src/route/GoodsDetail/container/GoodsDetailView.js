@@ -296,7 +296,12 @@ export default class GoodsDetailView extends Component{
                                 {stock>0? (
                                     <div className="cart-operation-wrapper clearfix">
                                         <span
-                                            onClick={()=>addToCartAction(id,buyQuantity)}
+                                            onClick={(ev)=>{
+
+												let startingPoint = ev.target.getBoundingClientRect();
+
+												addToCartAction(id,buyQuantity,startingPoint,`${ali_images[aliImagesIndx]}?x-oss-process=image/resize,w_440/quality,Q_90/format,webp`);
+											}}
                                             className="blue-title-btn js-add-cart"
                                         >
                                             <a>加入购物车</a>
