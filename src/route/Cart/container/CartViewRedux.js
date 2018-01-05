@@ -171,7 +171,7 @@ const addToCartAction = (skuId, count=1, startingPoint={}, imgSrc)=> (dispatch, 
             imgSrc: undefined
         }));
 
-    }, 800);
+    }, 600);
 
 }
 

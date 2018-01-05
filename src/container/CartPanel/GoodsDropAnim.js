@@ -18,13 +18,19 @@ export default function GoodsDropAnim(props){
     // 图片dom 元素
     let animPic = null;
 
-    let animStyle = {
+    let outerStyle = {
         entered: {
-            transform: 'translate3d(0,0,0)',
-            transition: '1s transform cubic-bezier(.17,.67,.26,1)'
+            transform: 'translateY(-20px)',
+            transition: 'transform 0.6s cubic-bezier(0,0,0.58,1)'
         },
         exited: {
             display: 'none'
+        }
+    };
+    let innerStyle = {
+        entered: {
+            transform: 'translateX(-40px)',
+            transition: 'transform 0.6s cubic-bezier(0,0,1,1)'
         }
     };
 
@@ -39,10 +45,14 @@ export default function GoodsDropAnim(props){
 
                 let offsetX = -(targetPoint.left - startingPoint.left);
                 let offsetY = -(targetPoint.top - startingPoint.top);
-
-                animStyle.entering = {
-                    transform: `translate3d(0,${offsetY}px,0)`,
+                console.log(offsetX, offsetY);
+                innerStyle.entering = {
+                    transform: `translateX(${offsetX-60}px)`,
                 }
+                outerStyle.entering = {
+                    transform: `translateY(${offsetY+40}px)`,
+                }
+
             }}
         >
             {(status)=>{
@@ -51,13 +61,16 @@ export default function GoodsDropAnim(props){
                     <div
                         className={`ball-wrap`}
                         style={{
-                            ...animStyle[status]
+                            ...outerStyle[status]
                         }}
                     >
                         <img
-                            className="ball-img"
+                            className={`ball-img ball-img-${status}`}
                             ref={el=>animPic=el}
                             src={imgSrc}
+                            style={{
+                                ...innerStyle[status]
+                            }}
                         />
                     </div>
                 )
