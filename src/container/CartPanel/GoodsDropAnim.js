@@ -29,7 +29,7 @@ export default function GoodsDropAnim(props){
     };
     let innerStyle = {
         entered: {
-            transform: 'translateX(-40px)',
+            transform: 'translateX(-20px)',
             transition: 'transform 0.6s cubic-bezier(0,0,1,1)'
         }
     };
@@ -45,12 +45,12 @@ export default function GoodsDropAnim(props){
 
                 let offsetX = -(targetPoint.left - startingPoint.left);
                 let offsetY = -(targetPoint.top - startingPoint.top);
-                console.log(offsetX, offsetY);
+
                 innerStyle.entering = {
-                    transform: `translateX(${offsetX-60}px)`,
+                    transform: `translateX(${offsetX+60}px)`,
                 }
                 outerStyle.entering = {
-                    transform: `translateY(${offsetY+40}px)`,
+                    transform: `translateY(${offsetY-50}px)`,
                 }
 
             }}
