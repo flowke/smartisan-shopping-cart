@@ -3,6 +3,8 @@ const path = require('path');
 const dfPath = require('./path');
 const merge = require('webpack-merge');
 const extractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const ClosureCompilerPlugin = require('webpack-closure-compiler');
+const webpack = require('webpack');
 
 const extractCSS = new extractTextWebpackPlugin('assets/css/[name]_[contenthash:6].css')
 
@@ -127,7 +129,11 @@ let config = {
     },
 
     plugins:[
-        extractCSS
+        extractCSS,
+		new webpack.EnvironmentPlugin({
+			NODE_ENV: 'production'
+		}),
+		new ClosureCompilerPlugin(),
     ],
 
     devtool: 'source-map',
