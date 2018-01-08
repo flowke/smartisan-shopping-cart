@@ -33,7 +33,9 @@ let config = {
         rules: [
             {
                 test: /\.js$/,
-                use:['babel-loader'],
+                use:[
+					{loader: 'babel-loader',options:{cacheDirectory:true}}
+				],
                 exclude: [
                     dfPath.node_modules
                 ]

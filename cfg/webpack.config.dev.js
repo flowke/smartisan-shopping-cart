@@ -1,6 +1,7 @@
 const base = require('./base');
 const dfPath = require('./path');
 const merge = require('webpack-merge');
+const webpack = require('webpack');
 
 let strategyMerge = merge.strategy({
     entry: 'prepend',
@@ -12,7 +13,10 @@ let config = {
         rules: [
             {
                 test: /\.js$/,
-                use:['babel-loader'],
+                use:[
+                    {loader: 'babel-loader',options:{cacheDirectory:true}}
+                ],
+
                 exclude: [
                     dfPath.node_modules
                 ]
@@ -47,6 +51,12 @@ let config = {
             },
         ]
     },
+
+    plugins:[
+        new webpack.EnvironmentPlugin({
+			NODE_ENV: 'development'
+		}),
+    ],
 
     devtool: 'cheap-module-eval-source-map',
 }

@@ -61,3 +61,6 @@ export default function Header(props){
 Header.defaultProps = {
     isCartIconShow: true
 };
+Header.propTypes = {
+    isCartIconShow: PT.bool
+};
